@@ -7,10 +7,13 @@
 //
 
 // task.resume() to get data
-// current URL: 
+// current URL:
 import Foundation
 
-let requestURL: NSURL = NSURL(string: "http://www.learnswiftonline.com/Samples/subway.json")!
+var jsonData: NSJSONSerialization = NSJSONSerialization()
+let categories = [Category?]()
+
+let requestURL: NSURL = NSURL(string: "http://tednewardsandbox.site44.com/questions.json")!
 let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
 let session = NSURLSession.sharedSession()
 let task = session.dataTaskWithRequest(urlRequest) {
@@ -18,31 +21,20 @@ let task = session.dataTaskWithRequest(urlRequest) {
     
     let httpResponse = response as! NSHTTPURLResponse
     let statusCode = httpResponse.statusCode
-    
+
     if (statusCode == 200) {
-        
-        do{
-            
+        do {
             let json = try NSJSONSerialization.JSONObjectWithData(data!, options:.AllowFragments)
-            
-            if let stations = json["stations"] as? [[String: AnyObject]] {
-                
-                for station in stations {
-                    
-                    if let name = station["stationName"] as? String {
-                        
-                        if let year = station["buildYear"] as? String {
-                            NSLog("%@ (Built %@)",name,year)
-                        }
-                        
+            jsonData = json as! NSJSONSerialization
+            if let titles = json as? [AnyObject] {
+                for title in titles {
+                    if let category = title["title"] as? String {
+                        NSLog("\(title["title"])")
                     }
                 }
-                
             }
-            
-        }catch {
+        } catch {
             print("Error with Json: \(error)")
-            
         }
     }
 }
