@@ -30,7 +30,6 @@ let task = session.dataTaskWithRequest(urlRequest) {
             if let titles = json as? [AnyObject] {
                 for title in titles {
                     if let category = title["title"] as? String {
-                        NSLog("The category is \(title["title"])")
                         let name: String = title["title"] as! String
                         let description: String = title["desc"] as! String
                         let questions = title["questions"] as? [AnyObject]
@@ -39,8 +38,6 @@ let task = session.dataTaskWithRequest(urlRequest) {
                             let text = q["text"] as! String
                             let key = q["answer"] as! String
                             var answers = [String]()
-                            NSLog("the text is \(q["answers"]!![0])")
-                            
                             for index in 0..<q["answers"]!!.count {
                                 answers.append((q["answers"]!![index] as? String)!)
                             }
@@ -53,7 +50,6 @@ let task = session.dataTaskWithRequest(urlRequest) {
                         categories.titles.append(category)
                     }
                 }
-                NSLog("There are categories: \(categories.titles.count)")
             }
         } catch {
             print("Error with Json: \(error)")

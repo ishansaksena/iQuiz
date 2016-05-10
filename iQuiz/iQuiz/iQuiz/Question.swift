@@ -19,4 +19,3 @@ class Question {
         self.answers = answers
     }
 }
-var questions = [String: Question]()
