@@ -14,8 +14,9 @@ class Category {
     var categoryName: String
     var descriptionText: String
     var categoryImage: UIImage!
+    var questions: [Question]
     
-    init? (categoryName: String, descriptionText: String, categoryImage: UIImage) {
+    init? (categoryName: String, descriptionText: String, categoryImage: UIImage, questions: [Question]) {
         if categoryName.isEmpty || descriptionText.isEmpty {
             return nil
         }
@@ -23,5 +24,6 @@ class Category {
         self.categoryName = categoryName
         self.descriptionText = descriptionText
         self.categoryImage = categoryImage
+        self.questions = questions
     }
 }

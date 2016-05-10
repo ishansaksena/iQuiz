@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		496C4B391CE14AC100C5FC58 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C4B381CE14AC100C5FC58 /* Categories.swift */; };
+		496C4B3B1CE171C900C5FC58 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496C4B3A1CE171C900C5FC58 /* Question.swift */; };
 		49E26EF21CDD6C2F00BCB07A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E26EF11CDD6C2F00BCB07A /* AppDelegate.swift */; };
 		49E26EF41CDD6C2F00BCB07A /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E26EF31CDD6C2F00BCB07A /* MasterViewController.swift */; };
 		49E26EF61CDD6C2F00BCB07A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E26EF51CDD6C2F00BCB07A /* DetailViewController.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		496C4B381CE14AC100C5FC58 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		496C4B3A1CE171C900C5FC58 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		49E26EEE1CDD6C2F00BCB07A /* iQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49E26EF11CDD6C2F00BCB07A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49E26EF31CDD6C2F00BCB07A /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 				49E26F211CDD6D3900BCB07A /* Category.swift */,
 				49E26F231CDD7A0700BCB07A /* CategoryTableViewCell.swift */,
 				49E26F251CDFCBAA00BCB07A /* FetchJSON.swift */,
+				496C4B381CE14AC100C5FC58 /* Categories.swift */,
+				496C4B3A1CE171C900C5FC58 /* Question.swift */,
 			);
 			path = iQuiz;
 			sourceTree = "<group>";
@@ -269,6 +275,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				49E26F241CDD7A0700BCB07A /* CategoryTableViewCell.swift in Sources */,
+				496C4B3B1CE171C900C5FC58 /* Question.swift in Sources */,
+				496C4B391CE14AC100C5FC58 /* Categories.swift in Sources */,
 				49E26EF61CDD6C2F00BCB07A /* DetailViewController.swift in Sources */,
 				49E26EF41CDD6C2F00BCB07A /* MasterViewController.swift in Sources */,
 				49E26EF21CDD6C2F00BCB07A /* AppDelegate.swift in Sources */,

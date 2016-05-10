@@ -12,8 +12,11 @@ class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var objects = [Category?]()
-
-
+    
+    func applicationWillEnterForeground(notification: NSNotification) {
+        task.resume()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -23,20 +26,12 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        task.resume()
         loadData()
     }
     
     func loadData() {
-        let photo1 = UIImage(named: "meal1")
-        let category1 = Category(categoryName: "Math", descriptionText: "Not even once", categoryImage: photo1!)
-        objects.append(category1)
-        let photo2 = UIImage(named: "meal2")
-        let category2 = Category(categoryName: "Science", descriptionText: "all the way", categoryImage: photo2!)
-        objects.append(category2)
-        let photo3 = UIImage(named: "meal3")
-        let category3 = Category(categoryName: "Marvel", descriptionText: "Iron man vs. Deadpoooool", categoryImage: photo3!)
-        objects.append(category3)
-        task.resume()
+        objects = categories.titles
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -52,6 +47,8 @@ class MasterViewController: UITableViewController {
         let alert = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
+        objects = categories.titles
+        self.tableView.reloadData()
     }
 
     // MARK: - Segues
@@ -102,7 +99,5 @@ class MasterViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-
-
 }
 
