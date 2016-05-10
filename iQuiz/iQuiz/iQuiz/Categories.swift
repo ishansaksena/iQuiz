@@ -11,7 +11,6 @@ import UIKit
 
 class Categories {
     var titles = [Category?]()
-    var questions = [Question?]()
     
     init(titles: [Category?]) {
         self.titles = titles

@@ -117,10 +117,10 @@
 				49E26EFC1CDD6C2F00BCB07A /* LaunchScreen.storyboard */,
 				49E26EFF1CDD6C2F00BCB07A /* Info.plist */,
 				49E26F211CDD6D3900BCB07A /* Category.swift */,
-				49E26F231CDD7A0700BCB07A /* CategoryTableViewCell.swift */,
-				49E26F251CDFCBAA00BCB07A /* FetchJSON.swift */,
 				496C4B381CE14AC100C5FC58 /* Categories.swift */,
+				49E26F231CDD7A0700BCB07A /* CategoryTableViewCell.swift */,
 				496C4B3A1CE171C900C5FC58 /* Question.swift */,
+				49E26F251CDFCBAA00BCB07A /* FetchJSON.swift */,
 			);
 			path = iQuiz;
 			sourceTree = "<group>";

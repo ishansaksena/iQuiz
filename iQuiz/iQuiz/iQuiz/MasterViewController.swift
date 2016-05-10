@@ -13,10 +13,6 @@ class MasterViewController: UITableViewController {
     var detailViewController: DetailViewController? = nil
     var objects = [Category?]()
     
-    func applicationWillEnterForeground(notification: NSNotification) {
-        task.resume()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -26,12 +22,53 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
-        task.resume()
-        loadData()
+        loadJSON()
     }
     
-    func loadData() {
-        objects = categories.titles
+    func loadJSON() {
+        let task = session.dataTaskWithRequest(urlRequest) {
+            (data, response, error) -> Void in
+            
+            let httpResponse = response as! NSHTTPURLResponse
+            let statusCode = httpResponse.statusCode
+            
+            if (statusCode == 200) {
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options:.AllowFragments)
+                    if let titles = json as? [AnyObject] {
+                        for title in titles {
+                            if let category = title["title"] as? String {
+                                let name: String = title["title"] as! String
+                                let description: String = title["desc"] as! String
+                                let questions = title["questions"] as? [AnyObject]
+                                var questionObjects = [Question]()
+                                for q in questions! {
+                                    let text = q["text"] as! String
+                                    let key = q["answer"] as! String
+                                    var answers = [String]()
+                                    for index in 0..<q["answers"]!!.count {
+                                        answers.append((q["answers"]!![index] as? String)!)
+                                    }
+                                    let singleQuestionObject: Question? = Question(text: text, key: key, answers: answers)
+                                    questionObjects.append(singleQuestionObject!)
+                                }
+                                
+                                let category = Category(categoryName: name, descriptionText: description,
+                                                        categoryImage: photo1!, questions: questionObjects)
+                                categories.titles.append(category)
+                            }
+                        }
+                    }
+                    NSLog("reloading data")
+                    self.objects = categories.titles
+                    self.tableView.reloadData()
+                } catch {
+                    print("Error with Json: \(error)")
+                }
+            }
+        }
+        //Making the request
+        task.resume()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -47,8 +84,8 @@ class MasterViewController: UITableViewController {
         let alert = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
-        objects = categories.titles
-        self.tableView.reloadData()
+        //objects = categories.titles
+        //self.tableView.reloadData()
     }
 
     // MARK: - Segues
@@ -62,6 +99,7 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
+            NSLog("\(self.tableView.indexPathForSelectedRow?.row)")
         }
     }
 
