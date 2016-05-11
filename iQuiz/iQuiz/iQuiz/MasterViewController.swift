@@ -22,9 +22,17 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
-        loadJSON()
+        
+        // Load data only once
+        if categories.titles.count == 0 {
+            loadJSON()
+        } else { // reload for table view
+            self.objects = categories.titles
+            self.tableView.reloadData()
+        }
     }
     
+    // Load JSON and plug it into the table view
     func loadJSON() {
         let task = session.dataTaskWithRequest(urlRequest) {
             (data, response, error) -> Void in
@@ -34,14 +42,18 @@ class MasterViewController: UITableViewController {
             
             if (statusCode == 200) {
                 do {
+                    // Getting the JSON
                     let json = try NSJSONSerialization.JSONObjectWithData(data!, options:.AllowFragments)
-                    if let titles = json as? [AnyObject] {
+                    if let titles = json as? [AnyObject] {//JSON data as array
                         for title in titles {
+                            // checking if the title exists
                             if let category = title["title"] as? String {
+                                
                                 let name: String = title["title"] as! String
                                 let description: String = title["desc"] as! String
                                 let questions = title["questions"] as? [AnyObject]
                                 var questionObjects = [Question]()
+                                
                                 for q in questions! {
                                     let text = q["text"] as! String
                                     let key = q["answer"] as! String
@@ -49,6 +61,7 @@ class MasterViewController: UITableViewController {
                                     for index in 0..<q["answers"]!!.count {
                                         answers.append((q["answers"]!![index] as? String)!)
                                     }
+                                    
                                     let singleQuestionObject: Question? = Question(text: text, key: key, answers: answers)
                                     questionObjects.append(singleQuestionObject!)
                                 }
@@ -59,7 +72,6 @@ class MasterViewController: UITableViewController {
                             }
                         }
                     }
-                    NSLog("reloading data")
                     self.objects = categories.titles
                     self.tableView.reloadData()
                 } catch {
@@ -70,7 +82,7 @@ class MasterViewController: UITableViewController {
         //Making the request
         task.resume()
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
@@ -84,8 +96,7 @@ class MasterViewController: UITableViewController {
         let alert = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
-        //objects = categories.titles
-        //self.tableView.reloadData()
+        NSLog("During settings: \(self.objects.count)")
     }
 
     // MARK: - Segues
@@ -99,7 +110,7 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
-            NSLog("\(self.tableView.indexPathForSelectedRow?.row)")
+            currentCategory = objects[(self.tableView.indexPathForSelectedRow?.row)!]
         }
     }
 
