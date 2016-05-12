@@ -14,8 +14,9 @@ import UIKit
 //var categories = [Category?]()
 let photo1 = UIImage(named: "meal1")
 
-let requestURL: NSURL = NSURL(string: "http://tednewardsandbox.site44.com/questions.json")!
-let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
-let session = NSURLSession.sharedSession()
+var requestURI: String = "http://tednewardsandbox.site44.com/questions.json"
+var requestURL: NSURL = NSURL(string: requestURI)!
+var urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
+var session = NSURLSession.sharedSession()
 
 

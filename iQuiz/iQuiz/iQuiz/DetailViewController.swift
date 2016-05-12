@@ -12,7 +12,7 @@ class DetailViewController: UIViewController {
     
     private var resultsViewController: ResultViewController!
     
-    // Instantiates
+    // Instantiates a result View Controller
     private func resultsVCBuilder() {
         if resultsViewController == nil {
             resultsViewController =
@@ -88,8 +88,7 @@ class DetailViewController: UIViewController {
         } else {
             // Show results once done with the quiz
             self.navigationController?.pushViewController(resultsViewController, animated: true)
-            currentCategory?.attempted = 0
-            currentCategory?.score = 0
+            
         }
     }
 }

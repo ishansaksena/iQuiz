@@ -19,6 +19,8 @@ class ResultViewController: UIViewController {
         let attempted = currentCategory?.attempted
         let scored = currentCategory?.score
         resultLabel.text = "You scored \(scored) / \(attempted)!"
+        currentCategory?.attempted = 0
+        currentCategory?.score = 0
     }
     
     override func didReceiveMemoryWarning() {

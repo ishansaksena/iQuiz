@@ -9,10 +9,13 @@
 import UIKit
 
 class MasterViewController: UITableViewController {
-
-    var detailViewController: DetailViewController? = nil
-    var objects = [Category?]()
     
+    // MARK: Properties
+    var settingsViewController: SettingViewController!// for settings popover for new URL
+    var detailViewController: DetailViewController? = nil
+    var objects = [Category?]()// To store category data
+    
+    // MARK: Default UIViewController functions
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -29,6 +32,35 @@ class MasterViewController: UITableViewController {
         } else { // reload for table view
             self.objects = categories.titles
             self.tableView.reloadData()
+        }
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+        super.viewWillAppear(animated)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    @IBAction func showSettings(sender: UIBarButtonItem) {
+        NSLog("During settings: \(self.objects.count)")
+        settingsVCBuilder()
+        self.presentViewController(settingsViewController, animated: true, completion: nil)
+        loadJSON()
+    }
+    
+    // MARK: User defined functions
+    
+    // Instantiates a settings view controller
+    private func settingsVCBuilder() {
+        if settingsViewController == nil {
+            settingsViewController =
+                storyboard?
+                    .instantiateViewControllerWithIdentifier("settings")
+                as! SettingViewController
         }
     }
     
@@ -83,22 +115,6 @@ class MasterViewController: UITableViewController {
         task.resume()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
-        super.viewWillAppear(animated)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    @IBAction func showSettings(sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-        NSLog("During settings: \(self.objects.count)")
-    }
-
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

@@ -63,7 +63,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDn-Gs-9vf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1454" y="-216"/>
+            <point key="canvasLocation" x="1462" y="-630"/>
         </scene>
         <!--Detail-->
         <scene sceneID="yUG-lL-AsK">
@@ -253,6 +253,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLD-UC-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-45" y="129"/>
+        </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="N5k-y9-Q1F">
+            <objects>
+                <viewController storyboardIdentifier="settings" id="fMq-71-poY" customClass="SettingViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9qn-dJ-CGo"/>
+                        <viewControllerLayoutGuide type="bottom" id="nCj-OI-TMb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vKm-4f-Kac">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="URL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aXK-gY-1v6">
+                                <rect key="frame" x="20" y="28" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOZ-uI-Pae">
+                                <rect key="frame" x="20" y="66" width="107" height="30"/>
+                                <state key="normal" title="Check now!"/>
+                                <connections>
+                                    <action selector="check:" destination="fMq-71-poY" eventType="touchUpInside" id="3wZ-H9-spl"/>
+                                </connections>
+                            </button>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oXA-aI-g7f">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Cancel" id="qxH-bx-RrL"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="TOZ-uI-Pae" secondAttribute="leading" id="0jj-Is-8Oz"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="aXK-gY-1v6" secondAttribute="leading" id="1zK-aB-3A2"/>
+                            <constraint firstItem="nCj-OI-TMb" firstAttribute="top" secondItem="oXA-aI-g7f" secondAttribute="bottom" id="Z2L-2m-uPT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aXK-gY-1v6" secondAttribute="trailing" id="bk8-eh-qql"/>
+                            <constraint firstItem="TOZ-uI-Pae" firstAttribute="top" secondItem="aXK-gY-1v6" secondAttribute="bottom" constant="8" id="cEo-ll-vWn"/>
+                            <constraint firstItem="aXK-gY-1v6" firstAttribute="top" secondItem="9qn-dJ-CGo" secondAttribute="bottom" constant="8" id="im5-3i-jPy"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="URL" destination="aXK-gY-1v6" id="mGM-JB-0YZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yZp-HG-nGh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1462" y="129"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
