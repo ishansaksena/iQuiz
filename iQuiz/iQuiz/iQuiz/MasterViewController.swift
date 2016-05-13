@@ -69,10 +69,20 @@ class MasterViewController: UITableViewController {
         let task = session.dataTaskWithRequest(urlRequest) {
             (data, response, error) -> Void in
             
-            let httpResponse = response as! NSHTTPURLResponse
+            if response == nil {
+                categories.loadCategories()
+                self.objects = categories.titles
+                self.tableView.reloadData()
+                NSLog("Offline loading")
+                let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            
+            let httpResponse =  response as! NSHTTPURLResponse
             let statusCode = httpResponse.statusCode
             
-            if (statusCode == 200) {
+            if (statusCode == 200) {// Request is OK
                 do {
                     // Getting the JSON
                     let json = try NSJSONSerialization.JSONObjectWithData(data!, options:.AllowFragments)
@@ -105,10 +115,19 @@ class MasterViewController: UITableViewController {
                         }
                     }
                     self.objects = categories.titles
+                    categories.saveTitles()
                     self.tableView.reloadData()
                 } catch {
                     print("Error with Json: \(error)")
                 }
+            } else {// No internet or invalid request: Load from memory
+                categories.loadCategories()
+                self.objects = categories.titles
+                self.tableView.reloadData()
+                NSLog("Offline loading")
+                let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         }
         //Making the request
