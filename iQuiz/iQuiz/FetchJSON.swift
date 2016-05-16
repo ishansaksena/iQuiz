@@ -9,14 +9,34 @@
 // task.resume() to get data
 // current URL:
 import Foundation
-import UIKit
 
-//var categories = [Category?]()
-let photo1 = UIImage(named: "meal1")
+var jsonData: NSJSONSerialization = NSJSONSerialization()
+let categories = [Category?]()
 
-var requestURI: String = "http://tednewardsandbox.site44.com/questions.json"
-var requestURL: NSURL = NSURL(string: requestURI)!
-var urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
-var session = NSURLSession.sharedSession()
+let requestURL: NSURL = NSURL(string: "http://tednewardsandbox.site44.com/questions.json")!
+let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
+let session = NSURLSession.sharedSession()
+let task = session.dataTaskWithRequest(urlRequest) {
+    (data, response, error) -> Void in
+    
+    let httpResponse = response as! NSHTTPURLResponse
+    let statusCode = httpResponse.statusCode
+
+    if (statusCode == 200) {
+        do {
+            let json = try NSJSONSerialization.JSONObjectWithData(data!, options:.AllowFragments)
+            jsonData = json as! NSJSONSerialization
+            if let titles = json as? [AnyObject] {
+                for title in titles {
+                    if let category = title["title"] as? String {
+                        NSLog("\(title["title"])")
+                    }
+                }
+            }
+        } catch {
+            print("Error with Json: \(error)")
+        }
+    }
+}
 
 
