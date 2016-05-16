@@ -119,12 +119,16 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ttB-nA-FnC" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="EyW-Zo-pIK"/>
                             <constraint firstItem="ttB-nA-FnC" firstAttribute="centerY" secondItem="svH-Pt-448" secondAttribute="centerY" id="FAe-Sp-GoF"/>
                             <constraint firstItem="0XM-y9-sOw" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" constant="20" symbolic="YES" id="Tsc-yG-G1q"/>
                             <constraint firstItem="0XM-y9-sOw" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" constant="8" id="aKR-LH-nXt"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="51c-jc-f65" appends="YES" id="Dof-zD-Azi"/>
+                        </connections>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Question" id="mOI-FS-AaM"/>
@@ -137,6 +141,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="51c-jc-f65"/>
             </objects>
             <point key="canvasLocation" x="719" y="129"/>
         </scene>

@@ -22,22 +22,26 @@ class Categories {
         self.init(titles: [])
     }
     
-    // MARK: NSCoding
-    
-    // SAVING
-    func saveTitles() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(titles[0] as! AnyObject, toFile: Category.ArchiveURL.path!)
+    func saveCategories() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(self.titles[0]!, toFile: Category.ArchiveURL.path!)
         if !isSuccessfulSave {
-            print("Failed to save title: \(titles[0]!.categoryName)")
+            print("Failed to save categories")
         } else {
             print("Successfully saved data")
         }
     }
     
-    // LOADING
-    func loadCategories() {
-        //self.titles = (NSKeyedUnarchiver.unarchiveObjectWithFile(Category.ArchiveURL.path!) as? [Category])!
-    }
 }
 
 var categories = Categories()
+
+// MARK: NSCoding
+
+// SAVING
+
+// LOADING
+func loadCategories() {
+    categories = (NSKeyedUnarchiver.unarchiveObjectWithFile(Category.ArchiveURL.path!) as? Categories)!
+}
+
+

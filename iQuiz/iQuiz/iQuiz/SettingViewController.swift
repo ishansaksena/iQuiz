@@ -24,6 +24,7 @@ class SettingViewController: UIViewController {
         urlRequest = NSMutableURLRequest(URL: requestURL)
         session = NSURLSession.sharedSession()
         
+                
         closeSettings()
     }
     

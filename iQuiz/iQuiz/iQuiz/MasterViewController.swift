@@ -71,18 +71,12 @@ class MasterViewController: UITableViewController {
     
     // Load JSON and plug it into the table view
     func loadJSON() {
+        self.objects = [Category?]()
+        categories = Categories()
+        self.tableView.reloadData()
+        
         let task = session.dataTaskWithRequest(urlRequest) {
             (data, response, error) -> Void in
-            
-            if response == nil {
-                categories.loadCategories()
-                self.objects = categories.titles
-                self.tableView.reloadData()
-                NSLog("Offline loading")
-                let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
-            }
             
             let httpResponse =  response as! NSHTTPURLResponse
             let statusCode = httpResponse.statusCode
@@ -120,13 +114,13 @@ class MasterViewController: UITableViewController {
                         }
                     }
                     self.objects = categories.titles
-                    categories.saveTitles()
+                    categories.saveCategories()
                     self.tableView.reloadData()
                 } catch {
                     print("Error with Json: \(error)")
                 }
             } else {// No internet or invalid request: Load from memory
-                categories.loadCategories()
+                loadCategories()
                 self.objects = categories.titles
                 self.tableView.reloadData()
                 NSLog("Offline loading")
